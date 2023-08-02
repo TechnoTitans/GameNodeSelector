@@ -1,6 +1,5 @@
 package src;
 
-import edu.wpi.first.cscore.CameraServerJNI;
 import edu.wpi.first.math.WPIMathJNI;
 import edu.wpi.first.networktables.IntegerPublisher;
 import edu.wpi.first.networktables.NetworkTable;
@@ -22,14 +21,12 @@ public class NTPublisher {
         NetworkTablesJNI.Helper.setExtractOnStaticLoad(false);
         WPIUtilJNI.Helper.setExtractOnStaticLoad(false);
         WPIMathJNI.Helper.setExtractOnStaticLoad(false);
-        CameraServerJNI.Helper.setExtractOnStaticLoad(false);
 
         CombinedRuntimeLoader.loadLibraries(
                 NTPublisher.class,
                 "wpiutiljni",
                 "wpimathjni",
-                "ntcorejni",
-                "cscorejnicvstatic"
+                "ntcorejni"
         );
 
         final NetworkTableInstance networkTableInstance = NetworkTableInstance.getDefault();
