@@ -12,8 +12,8 @@ public class SettingsReader {
         final ObjectMapper objectMapper = new ObjectMapper();
 
         this.settings = objectMapper.readValue(
-//                new File("settings.json"),
-                new File("C:\\Users\\Max\\IdeaProjects\\GameNodeSelector\\src\\main\\resources\\settings.json"),
+                new File("settings.json"),
+//                new File("C:\\Users\\Max\\IdeaProjects\\GameNodeSelector\\src\\main\\resources\\settings.json"),
                 Settings.class);
     }
 
