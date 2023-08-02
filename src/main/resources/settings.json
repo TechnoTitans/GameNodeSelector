@@ -1,5 +1,7 @@
 {
   "hostName": "localhost",
+  "networkTable": "GameNodeSelector",
+  "publishTopic": "Node",
 
   "buttonMapping": {
     "30": 20,

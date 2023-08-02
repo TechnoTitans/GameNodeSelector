@@ -9,10 +9,24 @@ public class Settings {
     private String hostName;
 
     @JsonProperty
+    private String networkTable;
+
+    @JsonProperty
+    private String publishTopic;
+
+    @JsonProperty
     private Map<Integer, Integer> buttonMapping;
 
     public String getHostname() {
         return hostName;
+    }
+
+    public String getNetworkTable() {
+        return networkTable;
+    }
+
+    public String getPublishTopic() {
+        return publishTopic;
     }
 
     public Map<Integer, Integer> getButtonMapping() {

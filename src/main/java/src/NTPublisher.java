@@ -14,7 +14,11 @@ import java.io.IOException;
 public class NTPublisher {
     private final IntegerPublisher nodePublisher;
 
-    public NTPublisher(final String hostName) throws IOException {
+    public NTPublisher(
+            final String hostName,
+            final String networkTable,
+            final String publishTopic
+    ) throws IOException {
         NetworkTablesJNI.Helper.setExtractOnStaticLoad(false);
         WPIUtilJNI.Helper.setExtractOnStaticLoad(false);
         WPIMathJNI.Helper.setExtractOnStaticLoad(false);
@@ -29,10 +33,10 @@ public class NTPublisher {
         );
 
         final NetworkTableInstance networkTableInstance = NetworkTableInstance.getDefault();
-        final NetworkTable table = networkTableInstance.getTable("GameNodeSelector");
-        this.nodePublisher = table.getIntegerTopic("Node").publish();
+        final NetworkTable table = networkTableInstance.getTable(networkTable);
+        this.nodePublisher = table.getIntegerTopic(publishTopic).publish();
 
-        networkTableInstance.startClient4("GameNodeSelectorListener");
+        networkTableInstance.startClient4(networkTable + "Publisher");
         networkTableInstance.setServer(hostName); // where TEAM=190, 294, etc, or use inst.setServer("hostname") or similar
         networkTableInstance.startDSClient();
     }

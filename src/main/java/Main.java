@@ -9,7 +9,11 @@ import java.io.IOException;
 public class Main {
     public static void main(final String[] args) throws IOException {
         final Settings settings = new SettingsReader().getSettings();
-        final NTPublisher ntPublisher = new NTPublisher(settings.getHostname());
+        final NTPublisher ntPublisher = new NTPublisher(
+                settings.getHostname(),
+                settings.getNetworkTable(),
+                settings.getPublishTopic()
+        );
         final KeyListener keyListener = new KeyListener(
                 ntPublisher,
                 settings.getButtonMapping(),
