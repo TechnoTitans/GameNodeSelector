@@ -1,4 +1,4 @@
-package src.Config;
+package src.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
