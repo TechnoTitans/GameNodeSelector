@@ -1,8 +1,8 @@
-import src.config.Settings;
-import src.config.SettingsReader;
 import com.github.kwhat.jnativehook.GlobalScreen;
 import src.KeyListener;
 import src.NTPublisher;
+import src.config.Settings;
+import src.config.SettingsReader;
 
 import java.io.IOException;
 
