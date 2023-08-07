@@ -14,6 +14,8 @@ public class Main {
                 settings.getNetworkTable(),
                 settings.getPublishTopic()
         );
+        // There is an option to pass in "keycode" as the first argument to the program to have it
+        // print the keys pressed so that you can find the keycodes for the buttons you want to use.
         final KeyListener keyListener = new KeyListener(
                 ntPublisher,
                 settings.getButtonMapping(),
