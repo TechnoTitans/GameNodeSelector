@@ -24,31 +24,34 @@ public class UI extends JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             initComponents();
             setVisible(true);
-
-            ntListener.getNetworkTableInstance().addListener(
-                    ntListener.getAutoSubscriber(),
-                    EnumSet.of(NetworkTableEvent.Kind.kTopic),
-                    (event) -> populateAutonomousPaths()
-            );
-
-            ntListener.getNetworkTableInstance().addListener(
-                    ntListener.getProfileSubscriber(),
-                    EnumSet.of(NetworkTableEvent.Kind.kTopic),
-                    (event) -> populateDriverProfiles()
-            );
-
-            ntListener.getNetworkTableInstance().addConnectionListener(
-                    true,
-                    (event) -> setTitle("TitanDash | " +
-                            (event.is(NetworkTableEvent.Kind.kConnected)
-                                    ? "Connected"
-                                    : event.is(NetworkTableEvent.Kind.kDisconnected)
-                                    ? "Disconnected"
-                                    : "Unknown"
-                            )
-                    )
-            );
+            ntEventListeners();
         });
+    }
+
+    private void ntEventListeners() {
+        ntListener.getNetworkTableInstance().addListener(
+                ntListener.getAutoSubscriber(),
+                EnumSet.of(NetworkTableEvent.Kind.kTopic),
+                (event) -> populateAutonomousPaths()
+        );
+
+        ntListener.getNetworkTableInstance().addListener(
+                ntListener.getProfileSubscriber(),
+                EnumSet.of(NetworkTableEvent.Kind.kTopic),
+                (event) -> populateDriverProfiles()
+        );
+
+        ntListener.getNetworkTableInstance().addConnectionListener(
+                true,
+                (event) -> setTitle("TitanDash | " +
+                        (event.is(NetworkTableEvent.Kind.kConnected)
+                                ? "Connected"
+                                : event.is(NetworkTableEvent.Kind.kDisconnected)
+                                ? "Disconnected"
+                                : "Unknown"
+                        )
+                )
+        );
     }
 
     private void initComponents() {
