@@ -1,7 +1,16 @@
 {
   "hostName": "localhost",
-  "networkTable": "GameNodeSelector",
-  "publishTopic": "Node",
+  "clientName": "Max_Is_The_Bestest_Person",
+  "nodeNetworkTable": "GameNodeSelector",
+  "nodePublishTopic": "Node",
+
+  "autoNetworkTable": "AutoSelector",
+  "autoPublishTopic": "SelectedAuto",
+  "autoSubscriberTopic": "AutoOptions",
+
+  "profileNetworkTable": "ProfileSelector",
+  "profilePublishTopic": "SelectedProfile",
+  "profileSubscriberTopic": "ProfileOptions",
 
   "buttonMapping": {
     "30": 20,

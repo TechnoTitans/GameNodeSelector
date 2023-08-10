@@ -9,10 +9,35 @@ public class Settings {
     private String hostName;
 
     @JsonProperty
-    private String networkTable;
+    private String clientName;
+
 
     @JsonProperty
-    private String publishTopic;
+    private String nodeNetworkTable;
+
+    @JsonProperty
+    private String nodePublishTopic;
+
+
+    @JsonProperty
+    private String autoNetworkTable;
+
+    @JsonProperty
+    private String autoPublishTopic;
+
+    @JsonProperty
+    private String autoSubscriberTopic;
+
+
+    @JsonProperty
+    private String profileNetworkTable;
+
+    @JsonProperty
+    private String profilePublishTopic;
+
+    @JsonProperty
+    private String profileSubscriberTopic;
+
 
     @JsonProperty
     private Map<Integer, Integer> buttonMapping;
@@ -21,12 +46,40 @@ public class Settings {
         return hostName;
     }
 
-    public String getNetworkTable() {
-        return networkTable;
+    public String getClientName() {
+        return clientName;
     }
 
-    public String getPublishTopic() {
-        return publishTopic;
+    public String getNodeNetworkTable() {
+        return nodeNetworkTable;
+    }
+
+    public String getNodePublishTopic() {
+        return nodePublishTopic;
+    }
+
+    public String getAutoNetworkTable() {
+        return autoNetworkTable;
+    }
+
+    public String getAutoPublishTopic() {
+        return autoPublishTopic;
+    }
+
+    public String getAutoSubscriberTopic() {
+        return autoSubscriberTopic;
+    }
+
+    public String getProfileNetworkTable() {
+        return profileNetworkTable;
+    }
+
+    public String getProfilePublishTopic() {
+        return profilePublishTopic;
+    }
+
+    public String getProfileSubscriberTopic() {
+        return profileSubscriberTopic;
     }
 
     public Map<Integer, Integer> getButtonMapping() {

@@ -8,16 +8,16 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import java.util.Map;
 
 public class KeyListener implements NativeKeyListener {
-    final NTPublisher ntPublisher;
+    final NTListener ntListener;
     final Map<Integer, Integer> buttonMapping;
     final boolean debug;
 
     public KeyListener(
-            final NTPublisher ntPublisher,
+            final NTListener ntListener,
             final Map<Integer, Integer> buttonMapping,
             final boolean debug
     ) {
-        this.ntPublisher = ntPublisher;
+        this.ntListener = ntListener;
         this.buttonMapping = buttonMapping;
         this.debug = debug;
 
@@ -43,7 +43,7 @@ public class KeyListener implements NativeKeyListener {
 
         final Integer state = buttonMapping.get(e.getKeyCode());
         if (state != null) {
-            ntPublisher.publish(state);
+            ntListener.publish(state);
         }
     }
 }
