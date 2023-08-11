@@ -14,6 +14,7 @@ import java.util.List;
 public class NTListener {
     private final NetworkTableInstance networkTableInstance;
     private final IntegerPublisher nodePublisher;
+    private final StringSubscriber selectedNodeSubscriber;
 
     private final StringArraySubscriber autoSubscriber;
     private final StringPublisher autoPublisher;
@@ -39,14 +40,19 @@ public class NTListener {
             this.networkTableInstance.setServer(ntSettings.getHostname()); // where TEAM=190, 294, etc, or use inst.setServer("hostname") or similar
             this.networkTableInstance.startDSClient();
 
-            this.nodePublisher = this.networkTableInstance.getTable(ntSettings.getNodeNetworkTable())
+            final NetworkTable ntNodeTable = this.networkTableInstance.getTable(ntSettings.getNodeNetworkTable());
+            this.nodePublisher = ntNodeTable
                     .getIntegerTopic(ntSettings.getNodePublishTopic())
                     .publish();
+
+            this.selectedNodeSubscriber = ntNodeTable
+                    .getStringTopic(ntSettings.getSelectedAutoSubscriberTopic())
+                    .subscribe("");
 
 
             final NetworkTable ntAutoTable = this.networkTableInstance.getTable(ntSettings.getAutoNetworkTable());
             this.autoSubscriber = ntAutoTable.getStringArrayTopic(ntSettings.getAutoSubscriberTopic())
-                    .subscribe(new String[] {"No Autos Available"});
+                    .subscribe(new String[] {""});
 
             this.autoPublisher = ntAutoTable.getStringTopic(ntSettings.getAutoPublishTopic())
                     .publish();
@@ -54,7 +60,7 @@ public class NTListener {
 
             final NetworkTable ntProfileTable = this.networkTableInstance.getTable(ntSettings.getProfileNetworkTable());
             this.profileSubscriber = ntProfileTable.getStringArrayTopic(ntSettings.getProfileSubscriberTopic())
-                    .subscribe(new String[] {"No Profiles Available"});
+                    .subscribe(new String[] {""});
 
             this.profilePublisher = ntProfileTable.getStringTopic(ntSettings.getProfilePublishTopic())
                     .publish();
@@ -83,6 +89,14 @@ public class NTListener {
 
     public void selectAuto(final String autoPath) {
         autoPublisher.set(autoPath);
+    }
+
+    public StringSubscriber getSelectedNodeSubscriber() {
+        return selectedNodeSubscriber;
+    }
+
+    public String getSelectedNode() {
+        return selectedNodeSubscriber.get();
     }
 
     public List<String> getDriverProfiles() {

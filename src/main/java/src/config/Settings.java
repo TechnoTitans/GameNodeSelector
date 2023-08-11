@@ -28,6 +28,8 @@ public class Settings {
     @JsonProperty
     private String autoSubscriberTopic;
 
+    @JsonProperty String selectedAutoSubscriberTopic;
+
 
     @JsonProperty
     private String profileNetworkTable;
@@ -56,6 +58,10 @@ public class Settings {
 
     public String getNodePublishTopic() {
         return nodePublishTopic;
+    }
+
+    public String getSelectedAutoSubscriberTopic() {
+        return selectedAutoSubscriberTopic;
     }
 
     public String getAutoNetworkTable() {
