@@ -4,6 +4,7 @@ import edu.wpi.first.networktables.NetworkTableEvent;
 import src.NTListener;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.EnumSet;
@@ -48,15 +49,13 @@ public class UI extends JFrame {
         ntListener.getNetworkTableInstance().addListener(
                 ntListener.getSelectedNodeSubscriber(),
                 EnumSet.of(NetworkTableEvent.Kind.kValueAll),
-                (event) -> {
-                    gridLayout.setIcon(
-                            new ImageIcon(Objects.requireNonNull(
-                                    getClass().getResource(
-                                            "/grids/gridlayout-" + ntListener.getSelectedNode() + ".png"
-                                    ))
-                            )
-                    );
-                }
+                (event) -> gridLayout.setIcon(
+                        new ImageIcon(Objects.requireNonNull(
+                                getClass().getResource(
+                                        "/grids/gridlayout-" + ntListener.getSelectedNode() + ".png"
+                                ))
+                        )
+                )
         );
 
         ntListener.getNetworkTableInstance().addConnectionListener(
@@ -84,17 +83,19 @@ public class UI extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("TitanDash | Disconnected");
-        setMinimumSize(new java.awt.Dimension(800, 308));
+        setMinimumSize(new Dimension(800, 308));
 
         autoSelector.addActionListener(this::autoSelectorActionPerformed);
+        populateAutonomousPaths();
 
         profileSelector.addActionListener(this::profileSelectorActionPerformed);
+        populateDriverProfiles();
 
-        autonomousLabel.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 14)); // NOI18N
+        autonomousLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // NOI18N
         autonomousLabel.setHorizontalAlignment(SwingConstants.CENTER);
         autonomousLabel.setText("Autonomous");
 
-        profileLabel.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 14)); // NOI18N
+        profileLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // NOI18N
         profileLabel.setHorizontalAlignment(SwingConstants.CENTER);
         profileLabel.setText("Profile Selector");
 
@@ -113,7 +114,7 @@ public class UI extends JFrame {
 
         setJMenuBar(menuBar);
 
-        GroupLayout layout = new GroupLayout(getContentPane());
+        final GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
