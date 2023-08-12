@@ -36,7 +36,8 @@ dependencies {
     implementation group: "org.ejml", name: "ejml-simple", version: wpi.versions.ejmlVersion.get()
 
     implementation group: 'com.github.kwhat', name: 'jnativehook', version: '2.2.2'
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.2'
+
+    implementation 'com.formdev:flatlaf:3.1.1'
 }
 
 shadowJar {

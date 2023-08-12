@@ -4,23 +4,18 @@ import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
-
-import java.util.Map;
+import src.config.Settings;
 
 public class KeyListener implements NativeKeyListener {
-    final NTPublisher ntPublisher;
-    final Map<Integer, Integer> buttonMapping;
+    final NTListener ntListener;
     final boolean debug;
 
     public KeyListener(
-            final NTPublisher ntPublisher,
-            final Map<Integer, Integer> buttonMapping,
+            final NTListener ntListener,
             final boolean debug
     ) {
-        this.ntPublisher = ntPublisher;
-        this.buttonMapping = buttonMapping;
+        this.ntListener = ntListener;
         this.debug = debug;
-
 
         //I think there is an issue when using driverstation AND in sim I think the DS reports a dif host IP and thus it publishes
         // to the wrong thing. I'm not 100% sure but if that isn't the issue then what might be going on is that the DS is
@@ -28,11 +23,8 @@ public class KeyListener implements NativeKeyListener {
         // making this unable to listen to the keyboard.
         try {
             GlobalScreen.registerNativeHook();
-        } catch (NativeHookException ex) {
-            System.err.println("There was a problem registering the native hook.");
-            System.err.println(ex.getMessage());
-
-            System.exit(1);
+        } catch (final NativeHookException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
@@ -41,9 +33,9 @@ public class KeyListener implements NativeKeyListener {
             System.out.println(e.getKeyCode());
         }
 
-        final Integer state = buttonMapping.get(e.getKeyCode());
+        final Integer state = Settings.BUTTON_MAPPING.get(e.getKeyCode());
         if (state != null) {
-            ntPublisher.publish(state);
+            ntListener.publish(state);
         }
     }
 }
