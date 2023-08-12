@@ -1,94 +1,60 @@
 package src.config;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Map;
+import java.util.HashMap;
 
 public class Settings {
-    @JsonProperty
-    private String hostName;
+    public static final String hostName = "localhost";
+    public static final String clientName = "TitanDash";
+    public static final String nodeNetworkTable = "GameNodeSelector";
+    public static final String nodePublishTopic = "Node";
+    public static final String selectedAutoSubscriberTopic = "SelectedNode";
 
-    @JsonProperty
-    private String clientName;
+    public static final String autoNetworkTable = "AutoSelector";
+    public static final String autoPublishTopic = "SelectedAuto";
+    public static final String autoSubscriberTopic = "AutoOptions";
 
+    public static final String profileNetworkTable = "ProfileSelector";
+    public static final String profilePublishTopic = "SelectedProfile";
+    public static final String profileSubscriberTopic = "ProfileOptions";
 
-    @JsonProperty
-    private String nodeNetworkTable;
+    public static final HashMap<Integer, Integer> buttonMapping = new HashMap<>();
+    static {
+        buttonMapping.put(30, 20);
+        buttonMapping.put(16, 21);
+        buttonMapping.put(2, 22);
 
-    @JsonProperty
-    private String nodePublishTopic;
+        buttonMapping.put(31, 23);
+        buttonMapping.put(17, 24);
+        buttonMapping.put(3, 25);
 
-
-    @JsonProperty
-    private String autoNetworkTable;
-
-    @JsonProperty
-    private String autoPublishTopic;
-
-    @JsonProperty
-    private String autoSubscriberTopic;
-
-    @JsonProperty String selectedAutoSubscriberTopic;
-
-
-    @JsonProperty
-    private String profileNetworkTable;
-
-    @JsonProperty
-    private String profilePublishTopic;
-
-    @JsonProperty
-    private String profileSubscriberTopic;
+        buttonMapping.put(32, 26);
+        buttonMapping.put(18, 27);
+        buttonMapping.put(4, 28);
 
 
-    @JsonProperty
-    private Map<Integer, Integer> buttonMapping;
+        buttonMapping.put(34, 10);
+        buttonMapping.put(20, 11);
+        buttonMapping.put(6, 12);
 
-    public String getHostname() {
-        return hostName;
-    }
+        buttonMapping.put(35, 13);
+        buttonMapping.put(21, 14);
+        buttonMapping.put(7, 15);
 
-    public String getClientName() {
-        return clientName;
-    }
+        buttonMapping.put(36, 16);
+        buttonMapping.put(22, 17);
+        buttonMapping.put(8, 18);
 
-    public String getNodeNetworkTable() {
-        return nodeNetworkTable;
-    }
 
-    public String getNodePublishTopic() {
-        return nodePublishTopic;
-    }
+        buttonMapping.put(38, 0);
+        buttonMapping.put(24, 1);
+        buttonMapping.put(10, 2);
 
-    public String getSelectedAutoSubscriberTopic() {
-        return selectedAutoSubscriberTopic;
-    }
+        buttonMapping.put(39, 3);
+        buttonMapping.put(25, 4);
+        buttonMapping.put(11, 5);
 
-    public String getAutoNetworkTable() {
-        return autoNetworkTable;
-    }
-
-    public String getAutoPublishTopic() {
-        return autoPublishTopic;
-    }
-
-    public String getAutoSubscriberTopic() {
-        return autoSubscriberTopic;
-    }
-
-    public String getProfileNetworkTable() {
-        return profileNetworkTable;
-    }
-
-    public String getProfilePublishTopic() {
-        return profilePublishTopic;
-    }
-
-    public String getProfileSubscriberTopic() {
-        return profileSubscriberTopic;
-    }
-
-    public Map<Integer, Integer> getButtonMapping() {
-        return buttonMapping;
+        buttonMapping.put(40, 6);
+        buttonMapping.put(26, 7);
+        buttonMapping.put(12, 8);
     }
 }

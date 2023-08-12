@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class NTListener {
+public class NTListener implements AutoCloseable {
     private final NetworkTableInstance networkTableInstance;
     private final IntegerPublisher nodePublisher;
     private final StringSubscriber selectedNodeSubscriber;
@@ -22,7 +22,7 @@ public class NTListener {
     private final StringArraySubscriber profileSubscriber;
     private final StringPublisher profilePublisher;
 
-    public NTListener(final Settings ntSettings) throws IOException {
+    public NTListener() throws IOException {
         synchronized (NetworkTableInstance.class) {
             NetworkTablesJNI.Helper.setExtractOnStaticLoad(false);
             WPIUtilJNI.Helper.setExtractOnStaticLoad(false);
@@ -36,33 +36,33 @@ public class NTListener {
             );
 
             this.networkTableInstance = NetworkTableInstance.getDefault();
-            this.networkTableInstance.startClient4(ntSettings.getClientName());
-            this.networkTableInstance.setServer(ntSettings.getHostname()); // where TEAM=190, 294, etc, or use inst.setServer("hostname") or similar
+            this.networkTableInstance.startClient4(Settings.clientName);
+            this.networkTableInstance.setServer(Settings.hostName); // where TEAM=190, 294, etc, or use inst.setServer("hostname") or similar
             this.networkTableInstance.startDSClient();
 
-            final NetworkTable ntNodeTable = this.networkTableInstance.getTable(ntSettings.getNodeNetworkTable());
+            final NetworkTable ntNodeTable = this.networkTableInstance.getTable(Settings.nodeNetworkTable);
             this.nodePublisher = ntNodeTable
-                    .getIntegerTopic(ntSettings.getNodePublishTopic())
+                    .getIntegerTopic(Settings.nodePublishTopic)
                     .publish();
 
             this.selectedNodeSubscriber = ntNodeTable
-                    .getStringTopic(ntSettings.getSelectedAutoSubscriberTopic())
+                    .getStringTopic(Settings.selectedAutoSubscriberTopic)
                     .subscribe("");
 
 
-            final NetworkTable ntAutoTable = this.networkTableInstance.getTable(ntSettings.getAutoNetworkTable());
-            this.autoSubscriber = ntAutoTable.getStringArrayTopic(ntSettings.getAutoSubscriberTopic())
+            final NetworkTable ntAutoTable = this.networkTableInstance.getTable(Settings.autoNetworkTable);
+            this.autoSubscriber = ntAutoTable.getStringArrayTopic(Settings.autoSubscriberTopic)
                     .subscribe(new String[] {""});
 
-            this.autoPublisher = ntAutoTable.getStringTopic(ntSettings.getAutoPublishTopic())
+            this.autoPublisher = ntAutoTable.getStringTopic(Settings.autoPublishTopic)
                     .publish();
 
 
-            final NetworkTable ntProfileTable = this.networkTableInstance.getTable(ntSettings.getProfileNetworkTable());
-            this.profileSubscriber = ntProfileTable.getStringArrayTopic(ntSettings.getProfileSubscriberTopic())
+            final NetworkTable ntProfileTable = this.networkTableInstance.getTable(Settings.profileNetworkTable);
+            this.profileSubscriber = ntProfileTable.getStringArrayTopic(Settings.profileSubscriberTopic)
                     .subscribe(new String[] {""});
 
-            this.profilePublisher = ntProfileTable.getStringTopic(ntSettings.getProfilePublishTopic())
+            this.profilePublisher = ntProfileTable.getStringTopic(Settings.profilePublishTopic)
                     .publish();
         }
     }
@@ -105,5 +105,17 @@ public class NTListener {
 
     public void selectProfile(final String profile) {
         profilePublisher.set(profile);
+    }
+
+    @Override
+    public void close() {
+        nodePublisher.close();
+        selectedNodeSubscriber.close();
+
+        autoSubscriber.close();
+        autoPublisher.close();
+
+        profileSubscriber.close();
+        profilePublisher.close();
     }
 }

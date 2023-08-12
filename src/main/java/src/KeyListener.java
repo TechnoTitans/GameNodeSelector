@@ -4,23 +4,18 @@ import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
-
-import java.util.Map;
+import src.config.Settings;
 
 public class KeyListener implements NativeKeyListener {
     final NTListener ntListener;
-    final Map<Integer, Integer> buttonMapping;
     final boolean debug;
 
     public KeyListener(
             final NTListener ntListener,
-            final Map<Integer, Integer> buttonMapping,
             final boolean debug
     ) {
         this.ntListener = ntListener;
-        this.buttonMapping = buttonMapping;
         this.debug = debug;
-
 
         //I think there is an issue when using driverstation AND in sim I think the DS reports a dif host IP and thus it publishes
         // to the wrong thing. I'm not 100% sure but if that isn't the issue then what might be going on is that the DS is
@@ -41,7 +36,7 @@ public class KeyListener implements NativeKeyListener {
             System.out.println(e.getKeyCode());
         }
 
-        final Integer state = buttonMapping.get(e.getKeyCode());
+        final Integer state = Settings.buttonMapping.get(e.getKeyCode());
         if (state != null) {
             ntListener.publish(state);
         }
