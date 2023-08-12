@@ -24,8 +24,8 @@ public class NTListener implements AutoCloseable {
                     "wpimathjni",
                     "ntcorejni"
             );
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (final IOException ex) {
+            throw new RuntimeException(ex);
         }
     }
     private final NetworkTableInstance networkTableInstance;

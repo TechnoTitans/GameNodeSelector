@@ -25,7 +25,6 @@ public class UI extends JFrame {
     public UI(final NTListener ntListener) {
         this.ntListener = ntListener;
 
-        /* Create and display the form */
         EventQueue.invokeLater(() -> {
             initComponents();
             setVisible(true);
@@ -96,7 +95,7 @@ public class UI extends JFrame {
         profileLabel.setText("Profile Selector");
 
         gridLayout.setHorizontalAlignment(SwingConstants.CENTER);
-        gridLayout.setIcon(new ImageIcon(Settings.getResource("/grids/gridlayout-UNKNOWN.png")));
+        gridLayout.setIcon(Settings.getGridLayoutImage("UNKNOWN"));
 
         fileMenu.setText("File");
 

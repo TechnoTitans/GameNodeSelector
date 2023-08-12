@@ -23,11 +23,8 @@ public class KeyListener implements NativeKeyListener {
         // making this unable to listen to the keyboard.
         try {
             GlobalScreen.registerNativeHook();
-        } catch (NativeHookException ex) {
-            System.err.println("There was a problem registering the native hook.");
-            System.err.println(ex.getMessage());
-
-            System.exit(1);
+        } catch (final NativeHookException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
