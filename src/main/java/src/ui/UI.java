@@ -82,6 +82,9 @@ public class UI extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("TitanDash | Disconnected");
+        setIconImage(new ImageIcon(
+                Objects.requireNonNull(getClass().getResource("/titandashicon.png"))).getImage()
+        );
         setMinimumSize(new Dimension(800, 450));
         setPreferredSize(new Dimension(800, 450));
 
