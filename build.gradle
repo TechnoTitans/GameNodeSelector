@@ -29,6 +29,10 @@ dependencies {
     implementation wpilibTools.deps.wpilibJava("wpinet")
     implementation wpilibTools.deps.wpilibJava("ntcore")
 
+    implementation group: "com.fasterxml.jackson.core", name: "jackson-annotations", version: wpi.versions.jacksonVersion.get()
+    implementation group: "com.fasterxml.jackson.core", name: "jackson-core", version: wpi.versions.jacksonVersion.get()
+    implementation group: "com.fasterxml.jackson.core", name: "jackson-databind", version: wpi.versions.jacksonVersion.get()
+
     implementation group: "org.ejml", name: "ejml-simple", version: wpi.versions.ejmlVersion.get()
 
     implementation group: 'com.github.kwhat', name: 'jnativehook', version: '2.2.2'
