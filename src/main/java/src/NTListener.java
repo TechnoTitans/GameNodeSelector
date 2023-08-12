@@ -12,6 +12,22 @@ import java.util.Collections;
 import java.util.List;
 
 public class NTListener implements AutoCloseable {
+    static {
+        NetworkTablesJNI.Helper.setExtractOnStaticLoad(false);
+        WPIUtilJNI.Helper.setExtractOnStaticLoad(false);
+        WPIMathJNI.Helper.setExtractOnStaticLoad(false);
+
+        try {
+            CombinedRuntimeLoader.loadLibraries(
+                    NTListener.class,
+                    "wpiutiljni",
+                    "wpimathjni",
+                    "ntcorejni"
+            );
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private final NetworkTableInstance networkTableInstance;
     private final IntegerPublisher nodePublisher;
     private final StringSubscriber selectedNodeSubscriber;
@@ -22,49 +38,36 @@ public class NTListener implements AutoCloseable {
     private final StringArraySubscriber profileSubscriber;
     private final StringPublisher profilePublisher;
 
-    public NTListener() throws IOException {
-        synchronized (NetworkTableInstance.class) {
-            NetworkTablesJNI.Helper.setExtractOnStaticLoad(false);
-            WPIUtilJNI.Helper.setExtractOnStaticLoad(false);
-            WPIMathJNI.Helper.setExtractOnStaticLoad(false);
+    public NTListener() {
+        this.networkTableInstance = NetworkTableInstance.getDefault();
+        this.networkTableInstance.startClient4(Settings.clientName);
+        this.networkTableInstance.setServer(Settings.hostName); // where TEAM=190, 294, etc, or use inst.setServer("hostname") or similar
+        this.networkTableInstance.startDSClient();
 
-            CombinedRuntimeLoader.loadLibraries(
-                    NTListener.class,
-                    "wpiutiljni",
-                    "wpimathjni",
-                    "ntcorejni"
-            );
+        final NetworkTable ntNodeTable = this.networkTableInstance.getTable(Settings.nodeNetworkTable);
+        this.nodePublisher = ntNodeTable
+                .getIntegerTopic(Settings.nodePublishTopic)
+                .publish();
 
-            this.networkTableInstance = NetworkTableInstance.getDefault();
-            this.networkTableInstance.startClient4(Settings.clientName);
-            this.networkTableInstance.setServer(Settings.hostName); // where TEAM=190, 294, etc, or use inst.setServer("hostname") or similar
-            this.networkTableInstance.startDSClient();
-
-            final NetworkTable ntNodeTable = this.networkTableInstance.getTable(Settings.nodeNetworkTable);
-            this.nodePublisher = ntNodeTable
-                    .getIntegerTopic(Settings.nodePublishTopic)
-                    .publish();
-
-            this.selectedNodeSubscriber = ntNodeTable
-                    .getStringTopic(Settings.selectedAutoSubscriberTopic)
-                    .subscribe("");
+        this.selectedNodeSubscriber = ntNodeTable
+                .getStringTopic(Settings.selectedAutoSubscriberTopic)
+                .subscribe("");
 
 
-            final NetworkTable ntAutoTable = this.networkTableInstance.getTable(Settings.autoNetworkTable);
-            this.autoSubscriber = ntAutoTable.getStringArrayTopic(Settings.autoSubscriberTopic)
-                    .subscribe(new String[] {""});
+        final NetworkTable ntAutoTable = this.networkTableInstance.getTable(Settings.autoNetworkTable);
+        this.autoSubscriber = ntAutoTable.getStringArrayTopic(Settings.autoSubscriberTopic)
+                .subscribe(new String[] {""});
 
-            this.autoPublisher = ntAutoTable.getStringTopic(Settings.autoPublishTopic)
-                    .publish();
+        this.autoPublisher = ntAutoTable.getStringTopic(Settings.autoPublishTopic)
+                .publish();
 
 
-            final NetworkTable ntProfileTable = this.networkTableInstance.getTable(Settings.profileNetworkTable);
-            this.profileSubscriber = ntProfileTable.getStringArrayTopic(Settings.profileSubscriberTopic)
-                    .subscribe(new String[] {""});
+        final NetworkTable ntProfileTable = this.networkTableInstance.getTable(Settings.profileNetworkTable);
+        this.profileSubscriber = ntProfileTable.getStringArrayTopic(Settings.profileSubscriberTopic)
+                .subscribe(new String[] {""});
 
-            this.profilePublisher = ntProfileTable.getStringTopic(Settings.profilePublishTopic)
-                    .publish();
-        }
+        this.profilePublisher = ntProfileTable.getStringTopic(Settings.profilePublishTopic)
+                .publish();
     }
 
     public NetworkTableInstance getNetworkTableInstance() {
