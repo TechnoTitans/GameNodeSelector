@@ -40,33 +40,33 @@ public class NTListener implements AutoCloseable {
 
     public NTListener() {
         this.networkTableInstance = NetworkTableInstance.getDefault();
-        this.networkTableInstance.startClient4(Settings.clientName);
-        this.networkTableInstance.setServer(Settings.hostName); // where TEAM=190, 294, etc, or use inst.setServer("hostname") or similar
+        this.networkTableInstance.startClient4(Settings.CLIENT_NAME);
+        this.networkTableInstance.setServer(Settings.HOSTNAME); // where TEAM=190, 294, etc, or use inst.setServer("hostname") or similar
         this.networkTableInstance.startDSClient();
 
-        final NetworkTable ntNodeTable = this.networkTableInstance.getTable(Settings.nodeNetworkTable);
+        final NetworkTable ntNodeTable = this.networkTableInstance.getTable(Settings.NODE_NETWORK_TABLE);
         this.nodePublisher = ntNodeTable
-                .getIntegerTopic(Settings.nodePublishTopic)
+                .getIntegerTopic(Settings.NODE_PUBLISH_TOPIC)
                 .publish();
 
         this.selectedNodeSubscriber = ntNodeTable
-                .getStringTopic(Settings.selectedAutoSubscriberTopic)
+                .getStringTopic(Settings.SELECTED_AUTO_SUBSCRIBER_TOPIC)
                 .subscribe("");
 
 
-        final NetworkTable ntAutoTable = this.networkTableInstance.getTable(Settings.autoNetworkTable);
-        this.autoSubscriber = ntAutoTable.getStringArrayTopic(Settings.autoSubscriberTopic)
+        final NetworkTable ntAutoTable = this.networkTableInstance.getTable(Settings.AUTO_NETWORK_TABLE);
+        this.autoSubscriber = ntAutoTable.getStringArrayTopic(Settings.AUTO_SUBSCRIBER_TOPIC)
                 .subscribe(new String[] {""});
 
-        this.autoPublisher = ntAutoTable.getStringTopic(Settings.autoPublishTopic)
+        this.autoPublisher = ntAutoTable.getStringTopic(Settings.AUTO_PUBLISH_TOPIC)
                 .publish();
 
 
-        final NetworkTable ntProfileTable = this.networkTableInstance.getTable(Settings.profileNetworkTable);
-        this.profileSubscriber = ntProfileTable.getStringArrayTopic(Settings.profileSubscriberTopic)
+        final NetworkTable ntProfileTable = this.networkTableInstance.getTable(Settings.PROFILE_NETWORK_TABLE);
+        this.profileSubscriber = ntProfileTable.getStringArrayTopic(Settings.PROFILE_SUBSCRIBER_TOPIC)
                 .subscribe(new String[] {""});
 
-        this.profilePublisher = ntProfileTable.getStringTopic(Settings.profilePublishTopic)
+        this.profilePublisher = ntProfileTable.getStringTopic(Settings.PROFILE_PUBLISH_TOPIC)
                 .publish();
     }
 

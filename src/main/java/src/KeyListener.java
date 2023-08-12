@@ -36,7 +36,7 @@ public class KeyListener implements NativeKeyListener {
             System.out.println(e.getKeyCode());
         }
 
-        final Integer state = Settings.buttonMapping.get(e.getKeyCode());
+        final Integer state = Settings.BUTTON_MAPPING.get(e.getKeyCode());
         if (state != null) {
             ntListener.publish(state);
         }

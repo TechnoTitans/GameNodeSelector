@@ -1,60 +1,73 @@
 package src.config;
 
+import javax.swing.*;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Settings {
-    public static final String hostName = "localhost";
-    public static final String clientName = "TitanDash";
-    public static final String nodeNetworkTable = "GameNodeSelector";
-    public static final String nodePublishTopic = "Node";
-    public static final String selectedAutoSubscriberTopic = "SelectedNode";
+    public static final String HOSTNAME = "localhost";
+    public static final String CLIENT_NAME = "TitanDash";
+    public static final String NODE_NETWORK_TABLE = "GameNodeSelector";
+    public static final String NODE_PUBLISH_TOPIC = "GridNodeId";
+    public static final String SELECTED_AUTO_SUBSCRIBER_TOPIC = "GridNodeName";
 
-    public static final String autoNetworkTable = "AutoSelector";
-    public static final String autoPublishTopic = "SelectedAuto";
-    public static final String autoSubscriberTopic = "AutoOptions";
+    public static final String AUTO_NETWORK_TABLE = "AutoSelector";
+    public static final String AUTO_PUBLISH_TOPIC = "SelectedAuto";
+    public static final String AUTO_SUBSCRIBER_TOPIC = "AutoOptions";
 
-    public static final String profileNetworkTable = "ProfileSelector";
-    public static final String profilePublishTopic = "SelectedProfile";
-    public static final String profileSubscriberTopic = "ProfileOptions";
+    public static final String PROFILE_NETWORK_TABLE = "ProfileSelector";
+    public static final String PROFILE_PUBLISH_TOPIC = "SelectedProfile";
+    public static final String PROFILE_SUBSCRIBER_TOPIC = "ProfileOptions";
 
-    public static final HashMap<Integer, Integer> buttonMapping = new HashMap<>();
+    public static final String ICON_PATH = "/titandashicon.png";
+
+    public static final HashMap<Integer, Integer> BUTTON_MAPPING = new HashMap<>();
     static {
-        buttonMapping.put(30, 20);
-        buttonMapping.put(16, 21);
-        buttonMapping.put(2, 22);
+        BUTTON_MAPPING.put(30, 20);
+        BUTTON_MAPPING.put(16, 21);
+        BUTTON_MAPPING.put(2, 22);
 
-        buttonMapping.put(31, 23);
-        buttonMapping.put(17, 24);
-        buttonMapping.put(3, 25);
+        BUTTON_MAPPING.put(31, 23);
+        BUTTON_MAPPING.put(17, 24);
+        BUTTON_MAPPING.put(3, 25);
 
-        buttonMapping.put(32, 26);
-        buttonMapping.put(18, 27);
-        buttonMapping.put(4, 28);
-
-
-        buttonMapping.put(34, 10);
-        buttonMapping.put(20, 11);
-        buttonMapping.put(6, 12);
-
-        buttonMapping.put(35, 13);
-        buttonMapping.put(21, 14);
-        buttonMapping.put(7, 15);
-
-        buttonMapping.put(36, 16);
-        buttonMapping.put(22, 17);
-        buttonMapping.put(8, 18);
+        BUTTON_MAPPING.put(32, 26);
+        BUTTON_MAPPING.put(18, 27);
+        BUTTON_MAPPING.put(4, 28);
 
 
-        buttonMapping.put(38, 0);
-        buttonMapping.put(24, 1);
-        buttonMapping.put(10, 2);
+        BUTTON_MAPPING.put(34, 10);
+        BUTTON_MAPPING.put(20, 11);
+        BUTTON_MAPPING.put(6, 12);
 
-        buttonMapping.put(39, 3);
-        buttonMapping.put(25, 4);
-        buttonMapping.put(11, 5);
+        BUTTON_MAPPING.put(35, 13);
+        BUTTON_MAPPING.put(21, 14);
+        BUTTON_MAPPING.put(7, 15);
 
-        buttonMapping.put(40, 6);
-        buttonMapping.put(26, 7);
-        buttonMapping.put(12, 8);
+        BUTTON_MAPPING.put(36, 16);
+        BUTTON_MAPPING.put(22, 17);
+        BUTTON_MAPPING.put(8, 18);
+
+
+        BUTTON_MAPPING.put(38, 0);
+        BUTTON_MAPPING.put(24, 1);
+        BUTTON_MAPPING.put(10, 2);
+
+        BUTTON_MAPPING.put(39, 3);
+        BUTTON_MAPPING.put(25, 4);
+        BUTTON_MAPPING.put(11, 5);
+
+        BUTTON_MAPPING.put(40, 6);
+        BUTTON_MAPPING.put(26, 7);
+        BUTTON_MAPPING.put(12, 8);
+    }
+
+    public static URL getResource(final String path) {
+        return Objects.requireNonNull(Settings.class.getResource(path));
+    }
+
+    public static ImageIcon getGridLayoutImage(final String nodeName) {
+        return new ImageIcon(Settings.getResource("/grids/gridlayout-" + nodeName + ".png"));
     }
 }

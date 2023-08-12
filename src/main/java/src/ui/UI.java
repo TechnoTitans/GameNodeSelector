@@ -2,13 +2,14 @@ package src.ui;
 
 import edu.wpi.first.networktables.NetworkTableEvent;
 import src.NTListener;
+import src.config.Settings;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.EnumSet;
-import java.util.Objects;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class UI extends JFrame {
     private final NTListener ntListener;
 
@@ -49,11 +50,7 @@ public class UI extends JFrame {
                 ntListener.getSelectedNodeSubscriber(),
                 EnumSet.of(NetworkTableEvent.Kind.kValueAll),
                 (event) -> gridLayout.setIcon(
-                        new ImageIcon(Objects.requireNonNull(
-                                getClass().getResource(
-                                        "/grids/gridlayout-" + ntListener.getSelectedNode() + ".png"
-                                ))
-                        )
+                        Settings.getGridLayoutImage(ntListener.getSelectedNode())
                 )
         );
 
@@ -82,17 +79,13 @@ public class UI extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("TitanDash | Disconnected");
-        setIconImage(new ImageIcon(
-                Objects.requireNonNull(getClass().getResource("/titandashicon.png"))).getImage()
-        );
+        setIconImage(new ImageIcon(Settings.getResource(Settings.ICON_PATH)).getImage());
         setMinimumSize(new Dimension(800, 450));
         setPreferredSize(new Dimension(800, 450));
 
         autoSelector.addActionListener(this::autoSelectorActionPerformed);
-        populateAutonomousPaths();
 
         profileSelector.addActionListener(this::profileSelectorActionPerformed);
-        populateDriverProfiles();
 
         autonomousLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // NOI18N
         autonomousLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -103,9 +96,7 @@ public class UI extends JFrame {
         profileLabel.setText("Profile Selector");
 
         gridLayout.setHorizontalAlignment(SwingConstants.CENTER);
-        gridLayout.setIcon(new ImageIcon(
-                Objects.requireNonNull(getClass().getResource("/grids/gridlayout-UNKNOWN.png")))
-        );
+        gridLayout.setIcon(new ImageIcon(Settings.getResource("/grids/gridlayout-UNKNOWN.png")));
 
         fileMenu.setText("File");
 
@@ -195,8 +186,9 @@ public class UI extends JFrame {
                                 )
                                 .addContainerGap(81, Short.MAX_VALUE))
         );
-
         pack();
+
+        refreshMenuItemActionPerformed();
     }
 
     //Listeners
