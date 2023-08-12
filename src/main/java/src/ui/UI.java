@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.EnumSet;
+import java.util.List;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class UI extends JFrame {
@@ -88,11 +89,11 @@ public class UI extends JFrame {
 
         profileSelector.addActionListener(this::profileSelectorActionPerformed);
 
-        autonomousLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // NOI18N
+        autonomousLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         autonomousLabel.setHorizontalAlignment(SwingConstants.CENTER);
         autonomousLabel.setText("Autonomous");
 
-        profileLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // NOI18N
+        profileLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         profileLabel.setHorizontalAlignment(SwingConstants.CENTER);
         profileLabel.setText("Profile Selector");
 
@@ -101,7 +102,7 @@ public class UI extends JFrame {
 
         fileMenu.setText("File");
 
-        refreshMenuItem.setText("Refresh");
+        refreshMenuItem.setText("Reset");
         refreshMenuItem.addActionListener(evt -> refreshMenuItemActionPerformed());
         fileMenu.add(refreshMenuItem);
 
@@ -213,11 +214,19 @@ public class UI extends JFrame {
 
     private void populateAutonomousPaths() {
         autoSelector.removeAllItems();
-        ntListener.getAutoPaths().forEach(autoSelector::addItem);
+        final List<String> autoPaths = ntListener.getAutoPaths();
+        autoPaths.forEach(autoSelector::addItem);
+        if (!autoPaths.isEmpty()) {
+            ntListener.selectAuto(autoPaths.get(0));
+        }
     }
 
     private void populateDriverProfiles() {
         profileSelector.removeAllItems();
-        ntListener.getDriverProfiles().forEach(profileSelector::addItem);
+        final List<String> driverProfiles = ntListener.getDriverProfiles();
+        driverProfiles.forEach(profileSelector::addItem);
+        if (!driverProfiles.isEmpty()) {
+            ntListener.selectProfile(driverProfiles.get(0));
+        }
     }
 }
