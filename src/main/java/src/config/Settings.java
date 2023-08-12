@@ -10,11 +10,11 @@ public class Settings {
     public static final String CLIENT_NAME = "TitanDash";
     public static final String NODE_NETWORK_TABLE = "GameNodeSelector";
     public static final String NODE_PUBLISH_TOPIC = "GridNodeId";
-    public static final String SELECTED_AUTO_SUBSCRIBER_TOPIC = "GridNodeName";
+    public static final String SELECTED_NODE_SUBSCRIBER_TOPIC = "GridNodeName";
 
     public static final String AUTO_NETWORK_TABLE = "AutoSelector";
-    public static final String AUTO_PUBLISH_TOPIC = "SelectedAuto";
     public static final String AUTO_SUBSCRIBER_TOPIC = "AutoOptions";
+    public static final String AUTO_PUBLISH_TOPIC = "SelectedAuto";
 
     public static final String PROFILE_NETWORK_TABLE = "ProfileSelector";
     public static final String PROFILE_PUBLISH_TOPIC = "SelectedProfile";

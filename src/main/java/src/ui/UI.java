@@ -35,13 +35,13 @@ public class UI extends JFrame {
     private void ntEventListeners() {
         ntListener.getNetworkTableInstance().addListener(
                 ntListener.getAutoSubscriber(),
-                EnumSet.of(NetworkTableEvent.Kind.kTopic),
+                EnumSet.of(NetworkTableEvent.Kind.kValueAll),
                 (event) -> populateAutonomousPaths()
         );
 
         ntListener.getNetworkTableInstance().addListener(
                 ntListener.getProfileSubscriber(),
-                EnumSet.of(NetworkTableEvent.Kind.kTopic),
+                EnumSet.of(NetworkTableEvent.Kind.kValueAll),
                 (event) -> populateDriverProfiles()
         );
 
@@ -55,14 +55,16 @@ public class UI extends JFrame {
 
         ntListener.getNetworkTableInstance().addConnectionListener(
                 true,
-                (event) -> setTitle("TitanDash | " +
-                        (event.is(NetworkTableEvent.Kind.kConnected)
-                                ? "Connected"
-                                : event.is(NetworkTableEvent.Kind.kDisconnected)
-                                ? "Disconnected"
-                                : "Unknown"
-                        )
-                )
+                (event) -> {
+                    if (event.is(NetworkTableEvent.Kind.kConnected)) {
+                        setTitle("TitanDash | Connected");
+                    } else if (event.is(NetworkTableEvent.Kind.kDisconnected)) {
+                        setTitle("TitanDash | Disconnected");
+                    } else {
+                        setTitle("TitanDash | Unknown");
+                    }
+                    refreshMenuItemActionPerformed();
+                }
         );
     }
 
@@ -190,7 +192,6 @@ public class UI extends JFrame {
         refreshMenuItemActionPerformed();
     }
 
-    //Listeners
     private void refreshMenuItemActionPerformed() {
         populateAutonomousPaths();
         populateDriverProfiles();

@@ -50,13 +50,13 @@ public class NTListener implements AutoCloseable {
                 .publish();
 
         this.selectedNodeSubscriber = ntNodeTable
-                .getStringTopic(Settings.SELECTED_AUTO_SUBSCRIBER_TOPIC)
+                .getStringTopic(Settings.SELECTED_NODE_SUBSCRIBER_TOPIC)
                 .subscribe("");
 
 
         final NetworkTable ntAutoTable = this.networkTableInstance.getTable(Settings.AUTO_NETWORK_TABLE);
         this.autoSubscriber = ntAutoTable.getStringArrayTopic(Settings.AUTO_SUBSCRIBER_TOPIC)
-                .subscribe(new String[] {""});
+                .subscribe(new String[0]);
 
         this.autoPublisher = ntAutoTable.getStringTopic(Settings.AUTO_PUBLISH_TOPIC)
                 .publish();
@@ -64,7 +64,7 @@ public class NTListener implements AutoCloseable {
 
         final NetworkTable ntProfileTable = this.networkTableInstance.getTable(Settings.PROFILE_NETWORK_TABLE);
         this.profileSubscriber = ntProfileTable.getStringArrayTopic(Settings.PROFILE_SUBSCRIBER_TOPIC)
-                .subscribe(new String[] {""});
+                .subscribe(new String[0]);
 
         this.profilePublisher = ntProfileTable.getStringTopic(Settings.PROFILE_PUBLISH_TOPIC)
                 .publish();
@@ -108,6 +108,10 @@ public class NTListener implements AutoCloseable {
 
     public void selectProfile(final String profile) {
         profilePublisher.set(profile);
+    }
+
+    public boolean isConnected() {
+        return networkTableInstance.isConnected();
     }
 
     @Override
