@@ -49,9 +49,9 @@ public class UI extends JFrame {
         ntListener.getNetworkTableInstance().addListener(
                 ntListener.getSelectedNodeSubscriber(),
                 EnumSet.of(NetworkTableEvent.Kind.kValueAll),
-                (event) -> gridLayout.setIcon(
-                        Settings.getGridLayoutImage(ntListener.getSelectedNode())
-                )
+                (event) -> {
+                    gridLayout.setIcon(Settings.getGridLayoutImage(ntListener.getSelectedNode()));
+                }
         );
 
         ntListener.getNetworkTableInstance().addConnectionListener(

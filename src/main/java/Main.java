@@ -4,10 +4,8 @@ import src.KeyListener;
 import src.NTListener;
 import src.ui.UI;
 
-import java.io.IOException;
-
 public class Main {
-    public static void main(final String[] args) throws IOException, InterruptedException {
+    public static void main(final String[] args) {
         FlatDarkLaf.setup();
 
         final NTListener ntListener = new NTListener();
