@@ -18,14 +18,12 @@ def nativeTasks = wpilibTools.createExtractionTasks {
 }
 
 nativeTasks.addToSourceSetResources(sourceSets.main)
-nativeConfig.dependencies.add wpilibTools.deps.wpilib("wpimath")
 nativeConfig.dependencies.add wpilibTools.deps.wpilib("wpinet")
 nativeConfig.dependencies.add wpilibTools.deps.wpilib("wpiutil")
 nativeConfig.dependencies.add wpilibTools.deps.wpilib("ntcore")
 
 dependencies {
     implementation wpilibTools.deps.wpilibJava("wpiutil")
-    implementation wpilibTools.deps.wpilibJava("wpimath")
     implementation wpilibTools.deps.wpilibJava("wpinet")
     implementation wpilibTools.deps.wpilibJava("ntcore")
 

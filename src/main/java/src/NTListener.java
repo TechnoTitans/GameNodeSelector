@@ -1,6 +1,5 @@
 package src;
 
-import edu.wpi.first.math.WPIMathJNI;
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.util.CombinedRuntimeLoader;
 import edu.wpi.first.util.WPIUtilJNI;
@@ -15,13 +14,11 @@ public class NTListener implements AutoCloseable {
     static {
         NetworkTablesJNI.Helper.setExtractOnStaticLoad(false);
         WPIUtilJNI.Helper.setExtractOnStaticLoad(false);
-        WPIMathJNI.Helper.setExtractOnStaticLoad(false);
 
         try {
             CombinedRuntimeLoader.loadLibraries(
                     NTListener.class,
                     "wpiutiljni",
-                    "wpimathjni",
                     "ntcorejni"
             );
         } catch (final IOException ex) {
