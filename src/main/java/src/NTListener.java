@@ -12,8 +12,8 @@ import java.util.List;
 
 public class NTListener implements AutoCloseable {
     static {
-        NetworkTablesJNI.Helper.setExtractOnStaticLoad(false);
         WPIUtilJNI.Helper.setExtractOnStaticLoad(false);
+        NetworkTablesJNI.Helper.setExtractOnStaticLoad(false);
 
         try {
             CombinedRuntimeLoader.loadLibraries(
