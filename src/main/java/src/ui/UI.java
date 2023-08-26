@@ -6,7 +6,8 @@ import src.config.Settings;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class UI extends JFrame {
                 ntListener.getSelectedNodeSubscriber(),
                 EnumSet.of(NetworkTableEvent.Kind.kValueAll),
                 (event) -> gridLayout.setIcon(Settings.getGridLayoutImage(ntListener.getSelectedNode()))
+
         );
 
         ntListener.getNetworkTableInstance().addConnectionListener(
@@ -82,9 +84,12 @@ public class UI extends JFrame {
         setIconImage(new ImageIcon(Settings.getResource(Settings.ICON_PATH)).getImage());
         setMinimumSize(new Dimension(800, 450));
         setPreferredSize(new Dimension(800, 450));
+        setLocationRelativeTo(null);
+
+        Arrays.stream(autoSelector.getKeyListeners()).forEach(autoSelector::removeKeyListener);
+        Arrays.stream(profileSelector.getKeyListeners()).forEach(profileSelector::removeKeyListener);
 
         autoSelector.addActionListener(this::autoSelectorActionPerformed);
-
         profileSelector.addActionListener(this::profileSelectorActionPerformed);
 
         autonomousLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));

@@ -5,6 +5,7 @@ import edu.wpi.first.util.CombinedRuntimeLoader;
 import edu.wpi.first.util.WPIUtilJNI;
 import src.config.Settings;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -65,6 +66,8 @@ public class NTListener implements AutoCloseable {
 
         this.profilePublisher = ntProfileTable.getStringTopic(Settings.PROFILE_PUBLISH_TOPIC)
                 .publish();
+
+        this.nodePublisher.set(-1);
     }
 
     public NetworkTableInstance getNetworkTableInstance() {

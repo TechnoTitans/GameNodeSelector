@@ -18,7 +18,7 @@ public class KeyListener implements NativeKeyListener {
         this.debug = debug;
 
         //I think there is an issue when using driverstation AND in sim I think the DS reports a dif host IP and thus it publishes
-        // to the wrong thing. I'm not 100% sure but if that isn't the issue then what might be going on is that the DS is
+        // to the wrong ip. I'm not 100% sure but if that isn't the issue then what might be going on is that the DS is
         // hooking the keyboard at the same time as this but since it has admin right it might be overriding this one, thus
         // making this unable to listen to the keyboard.
         try {
