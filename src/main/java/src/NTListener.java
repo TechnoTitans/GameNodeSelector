@@ -5,7 +5,6 @@ import edu.wpi.first.util.CombinedRuntimeLoader;
 import edu.wpi.first.util.WPIUtilJNI;
 import src.config.Settings;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
